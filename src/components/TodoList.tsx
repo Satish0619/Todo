@@ -19,7 +19,6 @@ const TodoList = () => {
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todoValue));
-    console.log(todoValue);
   }, [todoValue]);
 
   const createTodo = (todo) => {
