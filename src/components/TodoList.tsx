@@ -11,10 +11,10 @@ uuidv4();
 const TodoList = () => {
   const [todoValue, setTodo] = useState(
     localStorage.getItem("todos")
-      ? JSON.parse(localStorage.getItem("todos"))
+      ? JSON.parse(localStorage.getItem("todos")||'')
       : []
   );
-
+  const username=JSON.parse(localStorage.getItem('user')|| '')
   const [active, setActive] = useState("All");
 
   useEffect(() => {
@@ -66,8 +66,7 @@ const TodoList = () => {
     ),
   ];
   const sortedDates = dates.sort((a, b) => new Date(b) - new Date(a));
-  console.log(sortedDates, "data.....");
-
+  
   const [openIndex, setOpenIndex] = useState(0);
   const toggleItem = (index) => {
     setOpenIndex(openIndex === index ? null : index); // Close if the same item is clicked again
@@ -76,7 +75,7 @@ const TodoList = () => {
   return (
     <div className="container bg-gray-700 mt-20 p-8 rounded-md w-full lg:w-1/2 m-auto">
       <h1 className="flex justify-center font-bold text-gray-400 text-2xl mt-[-10]">
-        Hi Satish
+       Hi {username?.given_name}
       </h1>
       <hr className="border-gray-600 mt-3 bt-10" />
       <TodoForm createTodo={createTodo} />

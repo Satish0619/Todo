@@ -6,18 +6,28 @@ import {
 } from "@react-oauth/google";
 
 const Login = ({ setUser }) => {
-  const handelSuccess = (credentialRespons) => {
-    console.log("log in success", credentialRespons);
-    setUser(credentialRespons);
-    localStorage.setItem("user", JSON.stringify(credentialRespons));
+  const handleSuccess = (credentialResponse) => {
+    const token = credentialResponse.access_token;
+    fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((userInfo) => {
+        localStorage.setItem("user", JSON.stringify(userInfo));
+        window.location.href = "/";
+      })
+      .catch((error) => {
+        console.error("Failed to fetch user info: ", error);
+      });
   };
-
   const handelError = () => {
     console.log("log in Error");
   };
 
   const login = useGoogleLogin({
-    onSuccess: handelSuccess,
+    onSuccess: handleSuccess,
     onError: handelError,
   });
   return (

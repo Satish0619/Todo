@@ -3,12 +3,10 @@ import { AiFillEdit } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
 import { FaChevronDown } from "react-icons/fa";
 
-import { format, isYesterday,isToday, formatDistanceToNow } from "date-fns";
 
 const Todo = ({ task, setTodo, todoValue }) => {
-  const createdAt = new Date(task.createdAt);
-  const timeAgo = formatDistanceToNow(new Date(createdAt), { addSuffix: true });
-
+  
+  
   const deleteTodo = (id) => {
     setTodo(todoValue.filter((todo) => todo.id !== id));
   };
